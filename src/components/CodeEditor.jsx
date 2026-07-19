@@ -79,7 +79,7 @@ export function CodeEditor({ code, language, onChange, aiConfig = {} }) {
                     completion = data.choices[0].message.content;
                   }
                 } else if (cfg.provider === 'gemini' && cfg.geminiKey) {
-                  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${cfg.geminiModel || 'gemini-1.5-flash'}:generateContent?key=${cfg.geminiKey}`, {
+                  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${cfg.geminiModel || 'gemini-1.5-flash-latest'}:generateContent?key=${cfg.geminiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
