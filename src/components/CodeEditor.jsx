@@ -68,7 +68,7 @@ export function CodeEditor({ code, language, onChange, aiConfig = {} }) {
                       'Authorization': `Bearer ${cfg.openaiKey}`
                     },
                     body: JSON.stringify({
-                      model: 'gpt-4o-mini',
+                      model: cfg.openaiModel || 'gpt-4o-mini',
                       messages: [{ role: 'user', content: `Provide ONLY the raw code completion for the following snippet (do not wrap in markdown blocks, do not explain). Start exactly where the snippet leaves off:\n\n${textUntilPosition}` }],
                       max_tokens: 24,
                       stop: ['\n']
@@ -79,7 +79,7 @@ export function CodeEditor({ code, language, onChange, aiConfig = {} }) {
                     completion = data.choices[0].message.content;
                   }
                 } else if (cfg.provider === 'gemini' && cfg.geminiKey) {
-                  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${cfg.geminiKey}`, {
+                  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${cfg.geminiModel || 'gemini-1.5-flash'}:generateContent?key=${cfg.geminiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

@@ -22,10 +22,12 @@ function App() {
 
   const [showSettings, setShowSettings] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
-  const [aiConfig, setAiConfig] = useState({ provider: 'openai', openaiKey: '', geminiKey: '', ollamaModel: 'phi3:mini' });
+  const [aiConfig, setAiConfig] = useState({ provider: 'openai', openaiKey: '', openaiModel: 'gpt-4o-mini', geminiKey: '', geminiModel: 'gemini-1.5-flash', ollamaModel: 'phi3:mini' });
   const [isDebugging, setIsDebugging] = useState(false);
   
   const [ollamaModels, setOllamaModels] = useState(['phi3:mini']);
+  const [openaiModels, setOpenaiModels] = useState(['gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo']);
+  const [geminiModels, setGeminiModels] = useState(['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-1.0-pro']);
   const [terminalLogs, setTerminalLogs] = useState([]);
   
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
@@ -156,7 +158,7 @@ function App() {
             'Authorization': `Bearer ${aiConfig.openaiKey}`
           },
           body: JSON.stringify({
-            model: 'gpt-4o-mini',
+            model: aiConfig.openaiModel || 'gpt-4o-mini',
             messages: [{ role: 'user', content: prompt }]
           })
         });
@@ -164,7 +166,7 @@ function App() {
         if (data.error) throw new Error(data.error.message);
         fixedCode = data.choices[0].message.content;
       } else if (aiConfig.provider === 'gemini') {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${aiConfig.geminiKey}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${aiConfig.geminiModel || 'gemini-1.5-flash'}:generateContent?key=${aiConfig.geminiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
@@ -357,16 +359,40 @@ function App() {
             )}
             
             {aiConfig.provider === 'openai' && (
-              <div className="flex flex-col gap-1">
-                <label className="text-sm text-text-muted">OpenAI API Key</label>
-                <input type="password" className="styled-input w-full bg-black/50 border border-border-highlight text-text-main p-3 rounded-lg outline-none text-sm transition-colors focus:border-accent-cyan focus:shadow-[0_0_10px_rgba(0,240,255,0.1)]" value={aiConfig.openaiKey} placeholder="sk-proj-..." onChange={(e) => setAiConfig({ ...aiConfig, openaiKey: e.target.value })} />
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm text-text-muted">OpenAI API Key</label>
+                  <input type="password" className="styled-input w-full bg-black/50 border border-border-highlight text-text-main p-3 rounded-lg outline-none text-sm transition-colors focus:border-accent-cyan focus:shadow-[0_0_10px_rgba(0,240,255,0.1)]" value={aiConfig.openaiKey} placeholder="sk-proj-..." onChange={(e) => setAiConfig({ ...aiConfig, openaiKey: e.target.value })} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm text-text-muted flex justify-between"><span>OpenAI Model</span><span className="text-accent-cyan cursor-pointer" onClick={() => {
+                    if(!aiConfig.openaiKey) return alert('Enter API Key first');
+                    fetch('https://api.openai.com/v1/models', { headers: { 'Authorization': `Bearer ${aiConfig.openaiKey}` } })
+                      .then(r=>r.json()).then(d=>setOpenaiModels(d.data.map(m=>m.id).filter(id => id.startsWith('gpt')))).catch(e=>alert('Error fetching models: ' + e.message))
+                  }}>Fetch Versions</span></label>
+                  <select className="provider-select w-full bg-black/50 text-text-main border border-border-highlight p-3 rounded-lg font-sans text-sm" value={aiConfig.openaiModel} onChange={(e) => setAiConfig({ ...aiConfig, openaiModel: e.target.value })}>
+                    {openaiModels.map(m => <option key={m} value={m}>{m}</option>)}
+                  </select>
+                </div>
               </div>
             )}
             
             {aiConfig.provider === 'gemini' && (
-              <div className="flex flex-col gap-1">
-                <label className="text-sm text-text-muted">Gemini API Key</label>
-                <input type="password" className="styled-input w-full bg-black/50 border border-border-highlight text-text-main p-3 rounded-lg outline-none text-sm transition-colors focus:border-accent-cyan focus:shadow-[0_0_10px_rgba(0,240,255,0.1)]" value={aiConfig.geminiKey} placeholder="AIzaSy..." onChange={(e) => setAiConfig({ ...aiConfig, geminiKey: e.target.value })} />
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm text-text-muted">Gemini API Key</label>
+                  <input type="password" className="styled-input w-full bg-black/50 border border-border-highlight text-text-main p-3 rounded-lg outline-none text-sm transition-colors focus:border-accent-cyan focus:shadow-[0_0_10px_rgba(0,240,255,0.1)]" value={aiConfig.geminiKey} placeholder="AIzaSy..." onChange={(e) => setAiConfig({ ...aiConfig, geminiKey: e.target.value })} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm text-text-muted flex justify-between"><span>Gemini Model</span><span className="text-accent-cyan cursor-pointer" onClick={() => {
+                    if(!aiConfig.geminiKey) return alert('Enter API Key first');
+                    fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${aiConfig.geminiKey}`)
+                      .then(r=>r.json()).then(d=>setGeminiModels(d.models.map(m=>m.name.replace('models/', '')).filter(name => name.startsWith('gemini')))).catch(e=>alert('Error fetching models: ' + e.message))
+                  }}>Fetch Versions</span></label>
+                  <select className="provider-select w-full bg-black/50 text-text-main border border-border-highlight p-3 rounded-lg font-sans text-sm" value={aiConfig.geminiModel} onChange={(e) => setAiConfig({ ...aiConfig, geminiModel: e.target.value })}>
+                    {geminiModels.map(m => <option key={m} value={m}>{m}</option>)}
+                  </select>
+                </div>
               </div>
             )}
             <button className="btn-primary mt-4" onClick={() => setShowSettings(false)}>Save & Close</button>
