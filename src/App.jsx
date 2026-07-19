@@ -22,7 +22,7 @@ function App() {
 
   const [showSettings, setShowSettings] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
-  const [aiConfig, setAiConfig] = useState({ provider: 'gemini', geminiKey: '', ollamaModel: 'phi3:mini' });
+  const [aiConfig, setAiConfig] = useState({ provider: 'openai', openaiKey: '', geminiKey: '', ollamaModel: 'phi3:mini' });
   const [isDebugging, setIsDebugging] = useState(false);
   
   const [ollamaModels, setOllamaModels] = useState(['phi3:mini']);
@@ -135,6 +135,10 @@ function App() {
       alert("Please add your Gemini API Key in Settings first!");
       return;
     }
+    if (!aiConfig.openaiKey && aiConfig.provider === 'openai') {
+      alert("Please add your OpenAI API Key in Settings first!");
+      return;
+    }
     
     const activeFile = files.find(f => f.id === activeFileId);
     if (!activeFile) return;
@@ -144,7 +148,22 @@ function App() {
 
     try {
       let fixedCode = '';
-      if (aiConfig.provider === 'gemini') {
+      if (aiConfig.provider === 'openai') {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${aiConfig.openaiKey}`
+          },
+          body: JSON.stringify({
+            model: 'gpt-4o-mini',
+            messages: [{ role: 'user', content: prompt }]
+          })
+        });
+        const data = await response.json();
+        if (data.error) throw new Error(data.error.message);
+        fixedCode = data.choices[0].message.content;
+      } else if (aiConfig.provider === 'gemini') {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${aiConfig.geminiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -283,6 +302,7 @@ function App() {
                       code={activeFile.content} 
                       language={activeFile.type === 'js' ? 'javascript' : activeFile.type} 
                       onChange={handleCodeChange} 
+                      aiConfig={aiConfig}
                     />
                   )}
                   {!activeFile && (
@@ -320,6 +340,7 @@ function App() {
               Select how you want the AI Tutor to generate feedback.
             </p>
             <select className="provider-select w-full bg-black/50 text-text-main border border-border-highlight p-3 rounded-lg font-sans text-sm" value={aiConfig.provider} onChange={(e) => setAiConfig({ ...aiConfig, provider: e.target.value })}>
+              <option value="openai">OpenAI API (Build Week)</option>
               <option value="ollama">Local Ollama</option>
               <option value="gemini">Google Gemini API (Cloud)</option>
             </select>
@@ -332,6 +353,13 @@ function App() {
                     <option key={m} value={m}>{m}</option>
                   ))}
                 </select>
+              </div>
+            )}
+            
+            {aiConfig.provider === 'openai' && (
+              <div className="flex flex-col gap-1">
+                <label className="text-sm text-text-muted">OpenAI API Key</label>
+                <input type="password" className="styled-input w-full bg-black/50 border border-border-highlight text-text-main p-3 rounded-lg outline-none text-sm transition-colors focus:border-accent-cyan focus:shadow-[0_0_10px_rgba(0,240,255,0.1)]" value={aiConfig.openaiKey} placeholder="sk-proj-..." onChange={(e) => setAiConfig({ ...aiConfig, openaiKey: e.target.value })} />
               </div>
             )}
             
