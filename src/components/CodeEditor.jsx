@@ -8,8 +8,14 @@ loader.config({ monaco });
 
 let providersRegistered = false;
 
-export function CodeEditor({ code, language, onChange }) {
+export function CodeEditor({ code, language, onChange, aiConfig = {} }) {
   const debounceTimer = useRef(null);
+  const aiConfigRef = useRef(aiConfig);
+  
+  // Keep ref up to date so the global provider closure has latest config
+  React.useEffect(() => {
+    aiConfigRef.current = aiConfig;
+  }, [aiConfig]);
 
   const handleEditorWillMount = (monaco) => {
     monaco.editor.defineTheme('glass-theme', {
@@ -51,20 +57,46 @@ export function CodeEditor({ code, language, onChange }) {
               if (token.isCancellationRequested) return resolve({ items: [] });
               
               try {
-                const response = await fetch('http://localhost:11434/api/generate', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    model: 'phi3:mini',
-                    prompt: `Provide ONLY the raw code completion for the following snippet (do not wrap in markdown blocks, do not explain). Start exactly where the snippet leaves off:\n\n${textUntilPosition}`,
-                    stream: false,
-                    options: { num_predict: 24, stop: ['\n'] }
-                  })
-                });
+                const cfg = aiConfigRef.current;
+                let completion = '';
                 
-                if (!response.ok) return resolve({ items: [] });
-                const data = await response.json();
-                let completion = data.response;
+                if (cfg.provider === 'openai' && cfg.openaiKey) {
+                  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: { 
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${cfg.openaiKey}`
+                    },
+                    body: JSON.stringify({
+                      model: 'gpt-4o-mini',
+                      messages: [{ role: 'user', content: `Provide ONLY the raw code completion for the following snippet (do not wrap in markdown blocks, do not explain). Start exactly where the snippet leaves off:\n\n${textUntilPosition}` }],
+                      max_tokens: 24,
+                      stop: ['\n']
+                    })
+                  });
+                  if (response.ok) {
+                    const data = await response.json();
+                    completion = data.choices[0].message.content;
+                  }
+                } else {
+                  // Fallback to local Ollama if not OpenAI
+                  const response = await fetch('http://localhost:11434/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      model: cfg.ollamaModel || 'phi3:mini',
+                      prompt: `Provide ONLY the raw code completion for the following snippet (do not wrap in markdown blocks, do not explain). Start exactly where the snippet leaves off:\n\n${textUntilPosition}`,
+                      stream: false,
+                      options: { num_predict: 24, stop: ['\n'] }
+                    })
+                  });
+                  if (response.ok) {
+                    const data = await response.json();
+                    completion = data.response;
+                  }
+                }
+                
+                if (!completion) return resolve({ items: [] });
                 
                 // Cleanup AI markdown artifacts if it ignores instructions
                 completion = completion.replace(/^`{1,3}\w*\n?/g, '').replace(/`{1,3}$/g, '').trimEnd();
