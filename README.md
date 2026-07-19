@@ -17,6 +17,11 @@ You can literally plug *any* AI brain into this IDE.
 - **100% Offline Editor**: The Monaco Code Editor is fully bundled into the application, guaranteeing it never fails to load due to blocked CDNs or poor WiFi.
 - **Neon Glassmorphism UI**: A gorgeous, ultra-modern VS Code-style layout designed for deep focus.
 
+## Development Journey & Acknowledgements
+During the frantic hours of this build week, I leveraged the **OpenAI GPT-5.6 Terra free tier**, alongside collaborative brainstorm sessions with AI agents **Luna** and **Sol**, to architect the core components.
+
+We got *many* crucial brainstorms from GPT-5.6 Terra, but the most important problem it solved for us was the **Terminal Interceptor Architecture**. When building the Live Preview, we struggled with infinite loop re-renders when trying to pipe `console.log()` outputs from the sandboxed iframe back to the React parent window. GPT-5.6 Terra instantly provided the solution: injecting a lightweight IIFE directly into the `srcDoc` string to serialize the arguments and safely route them via `window.parent.postMessage()`.
+
 ## Installation & Setup
 
 We have removed all messy dependencies to ensure a flawless installation.
