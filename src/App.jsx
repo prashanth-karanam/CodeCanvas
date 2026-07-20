@@ -14,9 +14,105 @@ import { Group as PanelGroup, Panel, Separator as PanelResizeHandle } from 'reac
 
 function App() {
   const [files, setFiles] = useState([
-    { id: '1', path: '/index.html', content: '<div class="container">\n  <h1>Welcome to CodeCanvas</h1>\n</div>', type: 'html' },
-    { id: '2', path: '/style.css', content: '/* Write your CSS here */', type: 'css' },
-    { id: '3', path: '/script.js', content: '/* Write your JS here */', type: 'js' }
+    { 
+      id: '1', 
+      path: '/index.html', 
+      content: `<div class="welcome-box">
+  <div class="glow-logo">CodeCanvas</div>
+  <h1>Unleash Cosmic Code</h1>
+  <p>Start editing these files to build stunning web apps. Click the glowing <strong>Auto-Debug</strong> button above to optimize your code with AI.</p>
+  <div class="cosmic-line"></div>
+  <div class="features">
+    <span>✦ Live Preview</span>
+    <span>✦ AI Tutor</span>
+    <span>✦ Cyber Board</span>
+  </div>
+</div>`, 
+      type: 'html' 
+    },
+    { 
+      id: '2', 
+      path: '/style.css', 
+      content: `body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #0c0d16 0%, #030305 100%);
+  font-family: 'Outfit', -apple-system, sans-serif;
+  color: #fff;
+  overflow: hidden;
+}
+
+.welcome-box {
+  text-align: center;
+  padding: 40px;
+  border-radius: 16px;
+  background: rgba(8, 8, 12, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.02);
+  max-width: 400px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.glow-logo {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #00f0ff;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 32px;
+  margin: 10px 0;
+  background: linear-gradient(90deg, #ffffff, #ff0055);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+p {
+  color: #8b92a5;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.cosmic-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.3), transparent);
+  margin: 20px 0;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 12px;
+  color: #a0a5b5;
+  font-weight: 500;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}`, 
+      type: 'css' 
+    },
+    { 
+      id: '3', 
+      path: '/script.js', 
+      content: '// Write your JS here', 
+      type: 'js' 
+    }
   ]);
   
   const [activeFileId, setActiveFileId] = useState('1');

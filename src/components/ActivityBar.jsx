@@ -10,7 +10,7 @@ export function ActivityBar({ activeActivity, setActiveActivity, onOpenSettings 
   ];
 
   return (
-    <div className="w-12 h-full bg-obsidian border-r border-border-glass flex flex-col items-center py-4 z-20">
+    <div className="w-14 h-full bg-panel border border-border-glass rounded-xl flex flex-col items-center py-4 z-20 shadow-lg">
       <div className="flex flex-col gap-4 flex-1 w-full">
         {activities.map(activity => (
           <button

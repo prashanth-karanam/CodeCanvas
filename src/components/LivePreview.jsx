@@ -57,7 +57,7 @@ export function LivePreview({ html, css, js }) {
         width: '100%',
         height: '100%',
         border: 'none',
-        backgroundColor: '#fff'
+        backgroundColor: 'transparent'
       }}
     />
   );

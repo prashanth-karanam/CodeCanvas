@@ -16,7 +16,7 @@ export function Sidebar({
   legacyFiles
 }) {
   return (
-    <div className="w-64 h-full bg-panel border-r border-border-glass flex flex-col z-10 overflow-hidden">
+    <div className="w-64 h-full bg-panel border border-border-glass rounded-xl flex flex-col z-10 overflow-hidden shadow-lg">
       {activeActivity === 'explorer' && (
         <FileExplorer 
           files={files} 
