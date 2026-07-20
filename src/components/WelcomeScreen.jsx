@@ -10,10 +10,10 @@ export function WelcomeScreen({ onEnter }) {
 
     return (
       <div className="absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-        <div className="glass-modal max-w-2xl w-full rounded-2xl border border-accent-pink/30 bg-[#0a0a0f]/90 p-8 shadow-[0_0_50px_rgba(219,15,90,0.15)] relative overflow-hidden">
+        <div className="glass-modal max-w-2xl w-full rounded-2xl border border-accent-cyan/30 bg-[#0a0a0f]/90 p-8 shadow-[0_0_50px_rgba(0,240,255,0.15)] relative overflow-hidden">
           
           {/* Decorative gradients */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-accent-pink/10 rounded-full blur-[80px] -z-10 translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute top-0 right-0 w-64 h-64 bg-accent-cyan/10 rounded-full blur-[80px] -z-10 translate-x-1/2 -translate-y-1/2"></div>
           <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-purple/10 rounded-full blur-[80px] -z-10 -translate-x-1/2 translate-y-1/2"></div>
 
           <button 
@@ -26,10 +26,10 @@ export function WelcomeScreen({ onEnter }) {
           {activeModal === 'about' && (
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-3">
-                <div className="p-3 rounded-lg bg-accent-pink/10 text-accent-pink">
+                <div className="p-3 rounded-lg bg-accent-cyan/10 text-accent-cyan">
                   <Info size={28} />
                 </div>
-                <h2 className="text-3xl font-bold text-white tracking-tight">About <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink to-accent-purple">CodeCanvas</span></h2>
+                <h2 className="text-3xl font-bold text-white tracking-tight">About <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan to-accent-purple">CodeCanvas</span></h2>
               </div>
               
               <div className="text-lg text-text-muted leading-relaxed font-light space-y-4">
@@ -45,7 +45,7 @@ export function WelcomeScreen({ onEnter }) {
                 <button onClick={() => setActiveModal(null)} className="px-6 py-3 rounded-lg bg-white/5 hover:bg-white/10 text-white font-medium transition-colors border border-white/10">
                   Close
                 </button>
-                <button onClick={() => setActiveModal('howto')} className="px-6 py-3 rounded-lg bg-accent-pink hover:bg-accent-pink-hover text-white font-medium transition-colors shadow-[0_0_20px_rgba(219,15,90,0.4)] flex items-center gap-2">
+                <button onClick={() => setActiveModal('howto')} className="px-6 py-3 rounded-lg bg-accent-cyan hover:bg-accent-cyan/80 text-white font-medium transition-colors shadow-[0_0_20px_rgba(0,240,255,0.4)] flex items-center gap-2">
                   Learn How to Use <ChevronRight size={18} />
                 </button>
               </div>
@@ -91,7 +91,7 @@ export function WelcomeScreen({ onEnter }) {
       {/* Dynamic Cosmic Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-accent-purple/20 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow"></div>
-        <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-accent-pink/10 rounded-full blur-[150px] mix-blend-screen"></div>
+        <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-accent-cyan/10 rounded-full blur-[150px] mix-blend-screen"></div>
         <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[100px] mix-blend-screen"></div>
       </div>
 
