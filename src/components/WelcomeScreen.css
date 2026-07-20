@@ -1,5 +1,11 @@
 .welcome-screen-container {
   font-family: 'Inter', sans-serif;
+  background-color: #000000;
+  transition: background-color 0.5s ease;
+}
+
+.welcome-screen-container[data-theme="light"] {
+  background-color: #ffffff !important;
 }
 
 .perspective-1000 {

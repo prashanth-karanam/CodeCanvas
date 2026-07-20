@@ -10,7 +10,11 @@ export function WelcomeScreen({ onEnter, theme, setTheme }) {
 
     return (
       <div className="absolute inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-        <div className="glass-modal max-w-2xl w-full rounded-2xl border border-accent-cyan/30 bg-[#0a0a0f]/90 p-8 shadow-[0_0_50px_rgba(0,240,255,0.15)] relative overflow-hidden">
+        <div className={`glass-modal max-w-2xl w-full rounded-2xl border p-8 relative overflow-hidden transition-all duration-300 ${
+          theme === 'light' 
+            ? 'border-black/10 bg-white shadow-2xl text-black' 
+            : 'border-accent-cyan/30 bg-[#0a0a0f]/90 shadow-[0_0_50px_rgba(0,240,255,0.15)] text-white'
+        }`}>
           
           {/* Decorative gradients */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent-cyan/10 rounded-full blur-[80px] -z-10 translate-x-1/2 -translate-y-1/2"></div>
@@ -18,7 +22,7 @@ export function WelcomeScreen({ onEnter, theme, setTheme }) {
 
           <button 
             onClick={() => setActiveModal(null)}
-            className="absolute top-4 right-4 text-text-muted hover:text-white transition-colors p-2 hover:bg-white/5 rounded-full"
+            className={`absolute top-4 right-4 transition-colors p-2 rounded-full ${theme === 'light' ? 'text-gray-500 hover:text-black hover:bg-gray-100' : 'text-text-muted hover:text-white hover:bg-white/5'}`}
           >
             <X size={24} />
           </button>
@@ -29,10 +33,10 @@ export function WelcomeScreen({ onEnter, theme, setTheme }) {
                 <div className="p-3 rounded-lg bg-accent-cyan/10 text-accent-cyan">
                   <Info size={28} />
                 </div>
-                <h2 className="text-3xl font-bold text-white tracking-tight">About <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan to-accent-purple">CodeCanvas</span></h2>
+                <h2 className={`text-3xl font-bold tracking-tight ${theme === 'light' ? 'text-black' : 'text-white'}`}>About <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan to-accent-purple">CodeCanvas</span></h2>
               </div>
               
-              <div className="text-lg text-text-muted leading-relaxed font-light space-y-4">
+              <div className={`text-lg leading-relaxed font-light space-y-4 ${theme === 'light' ? 'text-gray-700' : 'text-text-muted'}`}>
                 <p>
                   CodeCanvas is a next-generation, browser-based cosmic development environment. Designed for speed, aesthetics, and intelligence, it merges a powerful code editor, a real-time live preview, and an AI-driven coding tutor into one seamless workspace.
                 </p>
@@ -42,7 +46,11 @@ export function WelcomeScreen({ onEnter, theme, setTheme }) {
               </div>
 
               <div className="mt-4 flex gap-4">
-                <button onClick={() => setActiveModal(null)} className="px-6 py-3 rounded-lg bg-white/5 hover:bg-white/10 text-white font-medium transition-colors border border-white/10">
+                <button onClick={() => setActiveModal(null)} className={`px-6 py-3 rounded-lg font-medium transition-colors border ${
+                  theme === 'light' 
+                    ? 'bg-gray-100 hover:bg-gray-200 text-black border-gray-300' 
+                    : 'bg-white/5 hover:bg-white/10 text-white border-white/10'
+                }`}>
                   Close
                 </button>
                 <button onClick={() => setActiveModal('howto')} className="px-6 py-3 rounded-lg bg-accent-cyan hover:bg-accent-cyan/80 text-white font-medium transition-colors shadow-[0_0_20px_rgba(0,240,255,0.4)] flex items-center gap-2">
@@ -58,7 +66,7 @@ export function WelcomeScreen({ onEnter, theme, setTheme }) {
                 <div className="p-3 rounded-lg bg-accent-cyan/10 text-accent-cyan">
                   <BookOpen size={28} />
                 </div>
-                <h2 className="text-3xl font-bold text-white tracking-tight">How to <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan to-blue-500">Use</span></h2>
+                <h2 className={`text-3xl font-bold tracking-tight ${theme === 'light' ? 'text-black' : 'text-white'}`}>How to <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan to-blue-500">Use</span></h2>
               </div>
               
               <div className="grid gap-4 mt-2">
@@ -69,11 +77,15 @@ export function WelcomeScreen({ onEnter, theme, setTheme }) {
                   { step: '04', title: 'Cyber Board', desc: 'Switch to the Whiteboard tab to draw full-screen diagrams and mockups using neon tools.' },
                   { step: '05', title: 'Export', desc: 'Export your finished masterpiece as a single HTML file with the click of a button.' }
                 ].map((item, i) => (
-                  <div key={i} className="flex gap-4 items-start p-4 rounded-xl bg-black/40 border border-white/5 hover:border-accent-cyan/30 transition-colors group">
+                  <div key={i} className={`flex gap-4 items-start p-4 rounded-xl border transition-colors group ${
+                    theme === 'light' 
+                      ? 'bg-gray-50 border-gray-200 hover:border-accent-cyan/50' 
+                      : 'bg-black/40 border-white/5 hover:border-accent-cyan/30'
+                  }`}>
                     <div className="font-mono text-xl font-bold text-accent-cyan/50 group-hover:text-accent-cyan transition-colors">{item.step}</div>
                     <div>
-                      <h4 className="text-white font-medium text-lg">{item.title}</h4>
-                      <p className="text-text-muted text-sm mt-1">{item.desc}</p>
+                      <h4 className={`font-medium text-lg ${theme === 'light' ? 'text-black' : 'text-white'}`}>{item.title}</h4>
+                      <p className={`text-sm mt-1 ${theme === 'light' ? 'text-gray-600' : 'text-text-muted'}`}>{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -86,7 +98,7 @@ export function WelcomeScreen({ onEnter, theme, setTheme }) {
   };
 
   return (
-    <div className={`welcome-screen-container fixed inset-0 z-[1000] flex items-center justify-center overflow-hidden transition-colors duration-700 ${theme === 'light' ? 'bg-white' : 'bg-black'}`} data-theme={theme}>
+    <div className="welcome-screen-container fixed inset-0 z-[1000] flex items-center justify-center overflow-hidden" data-theme={theme}>
       
       {/* Theme Toggle Button */}
       <button 
@@ -97,12 +109,14 @@ export function WelcomeScreen({ onEnter, theme, setTheme }) {
         {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
       </button>
 
-      {/* Dynamic Cosmic Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-accent-purple/20 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow"></div>
-        <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-accent-cyan/10 rounded-full blur-[150px] mix-blend-screen"></div>
-        <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[100px] mix-blend-screen"></div>
-      </div>
+      {/* Dynamic Cosmic Background (Dark Mode Only) */}
+      {theme === 'dark' && (
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-accent-purple/20 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow"></div>
+          <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-accent-cyan/10 rounded-full blur-[150px] mix-blend-screen"></div>
+          <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[100px] mix-blend-screen"></div>
+        </div>
+      )}
 
       <div className="z-10 perspective-1000">
         <div className="cosmic-card">
