@@ -6,7 +6,7 @@ import { ActivityBar } from './components/ActivityBar';
 import { Sidebar } from './components/Sidebar';
 import { Whiteboard } from './components/Whiteboard';
 import { WelcomeScreen } from './components/WelcomeScreen';
-import { Settings, Download, LayoutTemplate, Palette, Zap, Code, Search, Wand2, FileCode2 } from 'lucide-react';
+import { Settings, Download, LayoutTemplate, Palette, Zap, Code, Search, Wand2, FileCode2, Sun, Moon } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { TEMPLATES } from './utils/templates';
 import { CURRICULUM } from './utils/curriculum';
@@ -118,6 +118,7 @@ p {
   const [activeFileId, setActiveFileId] = useState('1');
   const [activeActivity, setActiveActivity] = useState('explorer');
   const [showLanding, setShowLanding] = useState(true);
+  const [theme, setTheme] = useState('dark');
 
   const [showSettings, setShowSettings] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
@@ -320,7 +321,7 @@ p {
   }
 
   return (
-    <div className="app-container" data-theme="dark">
+    <div className="app-container" data-theme={theme}>
       <header className="header flex justify-between items-center px-4 gap-3 bg-obsidian/80 backdrop-blur-md border-b border-border-glass h-16">
           <div className="flex items-center gap-4 flex-1">
             <div className="header-title text-xl">CodeCanvas</div>
@@ -353,6 +354,9 @@ p {
                 </div>
               )}
             </div>
+            <button className="btn-primary flex items-center gap-1.5 px-2.5 py-1.5 text-sm" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} title="Toggle Light/Dark Theme">
+              {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+            </button>
             <button className="btn-primary flex items-center gap-1.5 px-2.5 py-1.5 text-sm" onClick={handleDownload} title="Export HTML">
               <Download size={14} />
             </button>
@@ -415,6 +419,7 @@ p {
                       language={activeFile.type === 'js' ? 'javascript' : activeFile.type} 
                       onChange={handleCodeChange} 
                       aiConfig={aiConfig}
+                      theme={theme}
                     />
                   )}
                   {!activeFile && (

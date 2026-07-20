@@ -8,7 +8,7 @@ loader.config({ monaco });
 
 let providersRegistered = false;
 
-export function CodeEditor({ code, language, onChange, aiConfig = {} }) {
+export function CodeEditor({ code, language, onChange, aiConfig = {}, theme = 'dark' }) {
   const debounceTimer = useRef(null);
   const aiConfigRef = useRef(aiConfig);
   
@@ -18,7 +18,7 @@ export function CodeEditor({ code, language, onChange, aiConfig = {} }) {
   }, [aiConfig]);
 
   const handleEditorWillMount = (monaco) => {
-    monaco.editor.defineTheme('glass-theme', {
+    monaco.editor.defineTheme('glass-theme-dark', {
       base: 'vs-dark',
       inherit: true,
       rules: [],
@@ -27,6 +27,18 @@ export function CodeEditor({ code, language, onChange, aiConfig = {} }) {
         'editor.lineHighlightBackground': '#ffffff0a',
         'editorGutter.background': '#00000000',
         'editorLineNumber.foreground': '#5c6370'
+      }
+    });
+
+    monaco.editor.defineTheme('glass-theme-light', {
+      base: 'vs',
+      inherit: true,
+      rules: [],
+      colors: {
+        'editor.background': '#00000000',
+        'editor.lineHighlightBackground': '#00000005',
+        'editorGutter.background': '#00000000',
+        'editorLineNumber.foreground': '#9ca3af'
       }
     });
   };
@@ -155,7 +167,7 @@ export function CodeEditor({ code, language, onChange, aiConfig = {} }) {
     <Editor
       height="100%"
       language={language}
-      theme="glass-theme"
+      theme={theme === 'dark' ? 'glass-theme-dark' : 'glass-theme-light'}
       value={code}
       beforeMount={handleEditorWillMount}
       onMount={handleEditorDidMount}
