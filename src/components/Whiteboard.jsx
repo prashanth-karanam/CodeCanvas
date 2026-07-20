@@ -47,10 +47,15 @@ export function Whiteboard() {
 
   const initCanvas = () => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !canvas.parentElement) return;
 
     // Get parent dimensions
     const rect = canvas.parentElement.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) {
+      setTimeout(initCanvas, 50);
+      return;
+    }
+    
     canvas.width = rect.width;
     canvas.height = rect.height;
 
@@ -400,13 +405,31 @@ export function Whiteboard() {
       </div>
 
       {/* Workspace Wrapper */}
-      <div className="flex-1 flex flex-col md:flex-row min-h-0 relative">
+      <div className="flex-1 flex flex-row min-h-0 relative">
         
-        {/* Color / Brush Controls (Top row if in sidebar, left bar if in fullscreen) */}
-        <div className={`flex bg-black/25 border-border-glass ${isFullscreen ? 'flex-col w-14 border-r items-center py-4 gap-4' : 'flex-row w-full border-b px-3 py-1.5 justify-between items-center gap-2'}`}>
+        {/* Left Toolbar (Colors, Tools, Size/Glow) */}
+        <div className="flex flex-col bg-black/40 border-r border-border-glass items-center py-4 gap-4 z-10 w-16 overflow-y-auto overflow-x-hidden" style={{ minWidth: '4rem' }}>
           
+          {/* Cyber Color Palette (ABOVE tools) */}
+          <div className="flex flex-col gap-2 items-center">
+            {tool !== 'eraser' && neonColors.map(c => (
+              <button
+                key={c.hex}
+                onClick={() => setColor(c.hex)}
+                className={`w-5 h-5 rounded-full border transition-transform ${color === c.hex ? 'scale-125 border-white shadow-lg' : 'border-transparent hover:scale-110'}`}
+                style={{ 
+                  backgroundColor: c.hex,
+                  boxShadow: color === c.hex ? `0 0 10px ${c.hex}` : 'none' 
+                }}
+                title={c.name}
+              />
+            ))}
+          </div>
+
+          <div className="w-8 h-px bg-border-glass my-1" />
+
           {/* Drawing Tools */}
-          <div className={`flex gap-1 ${isFullscreen ? 'flex-col' : 'flex-row'}`}>
+          <div className="flex flex-col gap-1 items-center">
             {[
               { id: 'brush', icon: <Brush size={14} />, label: 'Brush' },
               { id: 'line', icon: <Minus size={14} className="rotate-45" />, label: 'Line' },
@@ -427,43 +450,25 @@ export function Whiteboard() {
             ))}
           </div>
 
-          {isFullscreen && <div className="w-10 h-px bg-border-glass my-1" />}
-
-          {/* Cyber Color Palette */}
-          <div className="flex gap-1.5 items-center">
-            {tool !== 'eraser' && neonColors.map(c => (
-              <button
-                key={c.hex}
-                onClick={() => setColor(c.hex)}
-                className={`w-5 h-5 rounded-full border transition-transform ${color === c.hex ? 'scale-125 border-white shadow-lg' : 'border-transparent hover:scale-110'}`}
-                style={{ 
-                  backgroundColor: c.hex,
-                  boxShadow: color === c.hex ? `0 0 10px ${c.hex}` : 'none' 
-                }}
-                title={c.name}
-              />
-            ))}
-          </div>
-
-          {isFullscreen && <div className="w-10 h-px bg-border-glass my-1" />}
+          <div className="w-8 h-px bg-border-glass my-1" />
 
           {/* Brush Size / Glow */}
-          <div className={`flex items-center gap-3 ${isFullscreen ? 'flex-col' : 'flex-row'}`}>
+          <div className="flex flex-col items-center gap-3">
             <div className="flex flex-col items-center gap-1">
-              <span className="text-[0.6rem] text-text-muted font-mono uppercase">Size</span>
+              <span className="text-[0.55rem] text-text-muted font-mono uppercase">Size</span>
               <input 
                 type="range" 
                 min="1" 
                 max="25" 
                 value={strokeWidth} 
                 onChange={(e) => setStrokeWidth(Number(e.target.value))}
-                className="w-16 accent-accent-pink cursor-pointer h-1 rounded-lg"
+                className="w-12 accent-accent-pink cursor-pointer h-1 rounded-lg"
               />
             </div>
             
             <button
               onClick={() => setGlowEnabled(!glowEnabled)}
-              className={`text-[0.65rem] font-mono px-2 py-1 rounded border transition-all ${glowEnabled ? 'bg-accent-cyan/10 border-accent-cyan/30 text-accent-cyan shadow-[0_0_8px_rgba(0,240,255,0.15)]' : 'border-border-glass text-text-muted'}`}
+              className={`text-[0.6rem] font-mono px-2 py-1 rounded border transition-all ${glowEnabled ? 'bg-accent-cyan/10 border-accent-cyan/30 text-accent-cyan shadow-[0_0_8px_rgba(0,240,255,0.15)]' : 'border-border-glass text-text-muted'}`}
             >
               GLOW
             </button>
