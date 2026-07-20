@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   Presentation, Maximize2, Minimize2, Undo, Redo, 
   Trash2, Download, Brush, Square, Circle, 
-  Minus, Type, Eraser, Sparkles, Copy, Check, ArrowRight
+  Minus, Type, Eraser, Sparkles, Copy, Check, ArrowRight,
+  Lock, Unlock
 } from 'lucide-react';
 
 export function Whiteboard() {
@@ -12,6 +13,7 @@ export function Whiteboard() {
   const [strokeWidth, setStrokeWidth] = useState(4);
   const [glowEnabled, setGlowEnabled] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [isLockedMode, setIsLockedMode] = useState(false);
 
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
@@ -265,6 +267,7 @@ export function Whiteboard() {
   };
 
   const endDrawing = (e) => {
+    if (isLockedMode) return;
     if (!isDrawing.current) return;
     isDrawing.current = false;
     
@@ -315,6 +318,40 @@ export function Whiteboard() {
     }
 
     setTextInput({ visible: false, x: 0, y: 0, value: '' });
+  };
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    const newLock = !isLockedMode;
+    setIsLockedMode(newLock);
+
+    const canvas = canvasRef.current;
+    const ctx = contextRef.current;
+    if (!canvas || !ctx) return;
+
+    if (newLock) {
+      if (!isDrawing.current && tool !== 'text') {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        isDrawing.current = true;
+        startX.current = x;
+        startY.current = y;
+        snapshot.current = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        configureStroke(ctx);
+        if (tool === 'brush' || tool === 'eraser') {
+          ctx.lineTo(x, y);
+          ctx.stroke();
+        }
+      }
+    } else {
+      if (isDrawing.current) {
+        isDrawing.current = false;
+        if (tool !== 'text') saveState();
+      }
+    }
   };
 
   const handleClear = () => {
@@ -401,6 +438,17 @@ export function Whiteboard() {
           >
             {isFullscreen ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
           </button>
+          <div className="w-px h-4 bg-border-glass mx-1" />
+          <button 
+            className={`px-2 py-1.5 rounded transition-colors flex items-center gap-1.5 ${isLockedMode ? 'bg-accent-pink/20 text-accent-pink border border-accent-pink/30' : 'text-text-muted hover:bg-white/10 hover:text-text-main border border-transparent'}`}
+            onClick={() => setIsLockedMode(!isLockedMode)}
+            title="Toggle Draw Lock (Right Click Canvas)"
+          >
+            {isLockedMode ? <Lock size={14} /> : <Unlock size={14} />}
+            <span className="text-[0.65rem] font-mono hidden md:inline">
+              {isLockedMode ? 'LOCKED' : 'UNLOCKED'}
+            </span>
+          </button>
         </div>
       </div>
 
@@ -480,6 +528,7 @@ export function Whiteboard() {
         <div className="flex-1 min-h-0 bg-[#0a0a0f] relative overflow-hidden">
           <canvas
             ref={canvasRef}
+            onContextMenu={handleContextMenu}
             onMouseDown={startDrawing}
             onMouseMove={draw}
             onMouseUp={endDrawing}
