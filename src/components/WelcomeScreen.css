@@ -1,0 +1,319 @@
+.welcome-screen-container {
+  font-family: 'Inter', sans-serif;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.cosmic-card {
+  height: 380px;
+  width: 280px;
+  padding: 20px;
+  position: relative;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.825), rgba(247, 28, 200, 0.13)),
+  radial-gradient(circle at 0%, rgba(172, 56, 187, 0.329), rgba(121, 21, 179, 0.521) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(33, 10, 54, 0.236) 75%),
+  radial-gradient(circle at 100%, rgba(171, 0, 238, 0.329), rgba(13, 115, 231, 0.514) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(51, 51, 51, 0.315) 75%),
+  radial-gradient(circle at 100% 0%, rgba(5, 5, 5, 0.329), rgb(226, 226, 231) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(51, 51, 51, 0.161) 75%),
+  radial-gradient(circle at 0% 100%, rgba(45, 10, 173, 0.541), rgba(178, 22, 245, 0.805) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(51, 51, 51, 0.315) 75%),
+  radial-gradient(closest-side, #3f87a646, #ebf8e13d, #3cd1f654),
+  linear-gradient(315deg, rgba(212, 212, 207, 0.74) 3%, rgb(11, 12, 12) 38%, rgba(16, 24, 23, 0.301) 68%, rgba(166, 168, 173, 0.942) 98%);
+  background-size: 200% 200%;
+  animation: cosmic 10s ease-in-out infinite;
+  box-sizing: border-box;
+  transform: skewY(-5deg);
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 50px;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.cosmic-card::before {
+  content: '';
+  width: 10px;
+  height: 380px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.825), rgba(247, 28, 200, 0.13)),
+  radial-gradient(circle at 0%, rgba(172, 56, 187, 0.329), rgba(121, 21, 179, 0.521) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(33, 10, 54, 0.236) 75%),
+  radial-gradient(circle at 100%, rgba(171, 0, 238, 0.329), rgba(13, 115, 231, 0.514) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(51, 51, 51, 0.315) 75%),
+  radial-gradient(circle at 100% 0%, rgba(5, 5, 5, 0.329), rgb(226, 226, 231) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(51, 51, 51, 0.161) 75%),
+  radial-gradient(circle at 0% 100%, rgba(45, 10, 173, 0.541), rgba(178, 22, 245, 0.805) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(51, 51, 51, 0.315) 75%),
+  radial-gradient(closest-side, #3f87a646, #ebf8e13d, #3cd1f654),
+  linear-gradient(315deg, rgba(212, 212, 207, 0.74) 3%, rgb(11, 12, 12) 38%, rgba(16, 24, 23, 0.301) 68%, rgba(166, 168, 173, 0.942) 98%);
+  background-size: 200% 200%;
+  animation: cosmic 10s ease-in-out infinite;
+  position: absolute;
+  top: 0px;
+  left: -9.5px;
+  transform-origin: right;
+  transform: skewY(45deg);
+  border: none;
+  transition: all 0.5s;
+  border-radius: 4px 0 0 4px;
+}
+
+.cosmic-card::after {
+  content: '';
+  height: 10px;
+  width: 280px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.825), rgba(247, 28, 200, 0.13)),
+  radial-gradient(circle at 0%, rgba(172, 56, 187, 0.329), rgba(121, 21, 179, 0.521) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(33, 10, 54, 0.236) 75%),
+  radial-gradient(circle at 100%, rgba(171, 0, 238, 0.329), rgba(13, 115, 231, 0.514) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(51, 51, 51, 0.315) 75%),
+  radial-gradient(circle at 100% 0%, rgba(5, 5, 5, 0.329), rgb(226, 226, 231) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(51, 51, 51, 0.161) 75%),
+  radial-gradient(circle at 0% 100%, rgba(45, 10, 173, 0.541), rgba(178, 22, 245, 0.805) 50%, rgba(37, 26, 26, 0.432) 75%, rgba(51, 51, 51, 0.315) 75%),
+  radial-gradient(closest-side, #3f87a646, #ebf8e13d, #3cd1f654),
+  linear-gradient(315deg, rgba(212, 212, 207, 0.74) 3%, rgb(11, 12, 12) 38%, rgba(16, 24, 23, 0.301) 68%, rgba(166, 168, 173, 0.942) 98%);
+  background-size: 200% 200%;
+  animation: cosmic 10s ease-in-out infinite;
+  position: absolute;
+  top: -9.5px;
+  left: 0px;
+  transform-origin: bottom;
+  transform: skewX(45deg);
+  transition: all 0.5s;
+  box-shadow: -310px 315px 6px rgba(36, 4, 41, 0.5);
+  border-radius: 4px 4px 0 0;
+}
+
+@keyframes cosmic {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+.cosmic-card:hover {
+  transform: skewY(0deg);
+}
+
+.cosmic-card:hover::before {
+  width: 0px;
+  height: 380px;
+  left: 0;
+  top: 0.1px;
+}
+
+.cosmic-card:hover::after {
+  width: 280px;
+  height: 0px;
+  left: 0.1px;
+  top: 0;
+  border: none;
+}
+
+.cosmic-card > *:not(.heading) {
+  opacity: 0;
+}
+
+.cosmic-card .heading {
+  width: 240px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  transition: 0.7s;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.cosmic-card .heading span {
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  animation: flickering 3s linear infinite;
+  display: block;
+  font-size: 24px;
+}
+
+.cosmic-card .heading span::before {
+  content: '☞';
+  position: absolute;
+  top: -30px;
+  left: 45%;
+  transform: rotate(-90deg);
+  font-size: 30px;
+  transition: all 0.5s;
+}
+
+.cosmic-card:hover .heading span::before {
+  transform: rotate(90deg);
+  left: 45%;
+}
+
+@keyframes flickering {
+  0% { opacity: 1; }
+  50% { opacity: 1; }
+  52% { opacity: 1; }
+  54% { opacity: 0; }
+  56% { opacity: 1; }
+  90% { opacity: 1; }
+  92% { opacity: 0; }
+  94% { opacity: 1; }
+  96% { opacity: 0; }
+  98% { opacity: 1; }
+  99% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.cosmic-card:hover .heading {
+  top: 15%;
+}
+
+.cosmic-card:hover > *:not(.heading) {
+  animation: fadeIn 1s ease 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.cosmic-card .content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: #fff;
+  width: 100%;
+}
+
+.cosmic-card .content .item {
+  border-radius: 0px 5px 0 5px;
+  cursor: pointer;
+  display: flex;
+  gap: 15px;
+  transition: all 0.3s;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 8px 25px;
+  justify-content: start;
+  align-items: center;
+  color: #fff;
+  border: 1px solid transparent;
+}
+
+.cosmic-card .content .item:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.content .item--create:hover svg {
+  animation: create 4s infinite;
+  stroke: #00f0ff;
+  color: #00f0ff;
+}
+
+@keyframes create {
+  0% { transform: translateX(1px); }
+  10% { transform: translateX(-1px); }
+  20% { transform: translateX(1px); }
+  30% { transform: translateX(-1px); }
+  40% { transform: translateX(1px); }
+  50% { transform: translateX(-1px); }
+  60% { transform: translateX(1px); }
+  70% { transform: translateX(-1px); }
+  80% { transform: translateX(1px); }
+  90% { transform: translateX(-1px); }
+  100% { transform: translateX(1px); }
+}
+
+.content .item--post:hover svg {
+  animation: rocket 1s infinite;
+  stroke: #ff0055;
+  color: #ff0055;
+}
+
+@keyframes rocket {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(-2deg); }
+  20% { transform: rotate(2deg); }
+  30% { transform: rotate(-2deg); }
+  40% { transform: rotate(2deg); }
+  50% { transform: rotate(-2deg); }
+  60% { transform: rotate(2deg); }
+  70% { transform: rotate(-2deg); }
+  80% { transform: rotate(2deg); }
+  90% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+.content .item--inspire:hover svg {
+  animation: inspire 2s infinite;
+  stroke: #b026ff;
+  color: #b026ff;
+}
+
+@keyframes inspire {
+  0% { transform: scale(1); }
+  10% { transform: scale(0.97); }
+  20% { transform: scale(1.03); }
+  30% { transform: scale(1); }
+  40% { transform: scale(0.97); }
+  50% { transform: scale(1.03); }
+  60% { transform: scale(1); }
+  70% { transform: scale(0.97); }
+  80% { transform: scale(1.03); }
+  90% { transform: scale(1); }
+  100% { transform: scale(0.97); }
+}
+
+.cosmic-card button {
+  cursor: pointer;
+  border-radius: 0px 5px 0 5px;
+  height: 40px;
+  width: calc(100% + 50px);
+  position: relative;
+  border: none;
+  transition: 0.2s;
+  background: linear-gradient(90deg, #b026ff, #ff0055);
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 0 !important;
+  margin-top: 15px;
+}
+
+.cosmic-card .content::before {
+  content: '';
+  position: absolute;
+  bottom: 10px;
+  border: 20px solid #ff0055;
+  right: -40px;
+  border-right-color: transparent;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.cosmic-card .content::after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  bottom: 10px;
+  right: -20px;
+  border-width: 15px 15px 0 0;
+  border-color: #550022 transparent transparent transparent;
+}
+
+.cosmic-card button:hover {
+  letter-spacing: 1px;
+  box-shadow: 0 0 15px rgba(255, 0, 85, 0.5);
+}
+
+.cosmic-card button:active {
+  transform: translateY(1px);
+}
+
+.glass-modal {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.animate-pulse-slow {
+  animation: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}

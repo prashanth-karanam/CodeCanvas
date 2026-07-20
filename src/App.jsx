@@ -5,6 +5,7 @@ import { CommandPalette } from './components/CommandPalette';
 import { ActivityBar } from './components/ActivityBar';
 import { Sidebar } from './components/Sidebar';
 import { Whiteboard } from './components/Whiteboard';
+import { WelcomeScreen } from './components/WelcomeScreen';
 import { Settings, Download, LayoutTemplate, Palette, Zap, Code, Search, Wand2, FileCode2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { TEMPLATES } from './utils/templates';
@@ -20,6 +21,7 @@ function App() {
   
   const [activeFileId, setActiveFileId] = useState('1');
   const [activeActivity, setActiveActivity] = useState('explorer');
+  const [showLanding, setShowLanding] = useState(true);
 
   const [showSettings, setShowSettings] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
@@ -216,6 +218,10 @@ function App() {
   ];
 
   const activeFile = files.find(f => f.id === activeFileId);
+
+  if (showLanding) {
+    return <WelcomeScreen onEnter={() => setShowLanding(false)} />;
+  }
 
   return (
     <div className="app-container" data-theme="dark">
