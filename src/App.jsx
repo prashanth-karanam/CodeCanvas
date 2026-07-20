@@ -317,7 +317,7 @@ p {
   const activeFile = files.find(f => f.id === activeFileId);
 
   if (showLanding) {
-    return <WelcomeScreen onEnter={() => setShowLanding(false)} />;
+    return <WelcomeScreen onEnter={() => setShowLanding(false)} theme={theme} setTheme={setTheme} />;
   }
 
   return (

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Rocket, Info, BookOpen, Star, X, ChevronRight } from 'lucide-react';
+import { Rocket, Info, BookOpen, Star, X, ChevronRight, Sun, Moon } from 'lucide-react';
 import './WelcomeScreen.css';
 
-export function WelcomeScreen({ onEnter }) {
+export function WelcomeScreen({ onEnter, theme, setTheme }) {
   const [activeModal, setActiveModal] = useState(null);
 
   const ModalContent = () => {
@@ -86,8 +86,17 @@ export function WelcomeScreen({ onEnter }) {
   };
 
   return (
-    <div className="welcome-screen-container fixed inset-0 z-[1000] flex items-center justify-center bg-[#050508] overflow-hidden">
+    <div className={`welcome-screen-container fixed inset-0 z-[1000] flex items-center justify-center overflow-hidden transition-colors duration-700 ${theme === 'light' ? 'bg-white' : 'bg-black'}`} data-theme={theme}>
       
+      {/* Theme Toggle Button */}
+      <button 
+        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        className={`absolute top-6 right-6 z-50 p-3 rounded-full transition-all duration-300 shadow-lg border ${theme === 'light' ? 'bg-white text-black border-gray-200 hover:bg-gray-100 hover:shadow-xl' : 'bg-black text-white border-white/10 hover:bg-white/10 hover:shadow-[0_0_15px_rgba(0,240,255,0.3)]'}`}
+        title="Toggle Light/Dark Mode"
+      >
+        {theme === 'dark' ? <Sun size={24} /> : <Moon size={24} />}
+      </button>
+
       {/* Dynamic Cosmic Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-accent-purple/20 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow"></div>
