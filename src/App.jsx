@@ -4,6 +4,7 @@ import { LivePreview } from './components/LivePreview';
 import { CommandPalette } from './components/CommandPalette';
 import { ActivityBar } from './components/ActivityBar';
 import { Sidebar } from './components/Sidebar';
+import { Whiteboard } from './components/Whiteboard';
 import { Settings, Download, LayoutTemplate, Palette, Zap, Code, Search, Wand2, FileCode2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { TEMPLATES } from './utils/templates';
@@ -262,19 +263,26 @@ function App() {
         <main className="workspace flex flex-row flex-1 overflow-hidden">
           <ActivityBar activeActivity={activeActivity} setActiveActivity={setActiveActivity} onOpenSettings={() => setShowSettings(true)} />
           
-          <Sidebar 
-            activeActivity={activeActivity}
-            files={files}
-            setFiles={setFiles}
-            activeFileId={activeFileId}
-            setActiveFileId={setActiveFileId}
-            aiConfig={aiConfig}
-            currentLessonIndex={currentLessonIndex}
-            setCurrentLessonIndex={setCurrentLessonIndex}
-            legacyFiles={legacyFiles}
-          />
+          {activeActivity !== 'whiteboard' && (
+            <Sidebar 
+              activeActivity={activeActivity}
+              files={files}
+              setFiles={setFiles}
+              activeFileId={activeFileId}
+              setActiveFileId={setActiveFileId}
+              aiConfig={aiConfig}
+              currentLessonIndex={currentLessonIndex}
+              setCurrentLessonIndex={setCurrentLessonIndex}
+              legacyFiles={legacyFiles}
+            />
+          )}
           
-          <PanelGroup direction="vertical" className="flex-1">
+          {activeActivity === 'whiteboard' ? (
+            <div className="flex-1 h-full overflow-hidden relative">
+              <Whiteboard />
+            </div>
+          ) : (
+            <PanelGroup direction="vertical" className="flex-1">
             
             <Panel minSize={20} defaultSize={60}>
               <div className="panel editor-container h-full flex flex-col border-r-0 border-b border-border-glass">
@@ -326,6 +334,7 @@ function App() {
             </Panel>
             
           </PanelGroup>
+          )}
         </main>
         
       <CommandPalette 

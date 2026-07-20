@@ -32,9 +32,6 @@ export function Sidebar({
           isSidebar={true}
         />
       )}
-      {activeActivity === 'whiteboard' && (
-        <Whiteboard />
-      )}
       {activeActivity === 'challenge' && (
         <ChallengePanel 
           currentLessonIndex={currentLessonIndex} 
