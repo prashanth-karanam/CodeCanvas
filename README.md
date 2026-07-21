@@ -6,68 +6,43 @@
 > **[⚡ Launch Live Demo on GitHub Pages](https://prashanth-karanam.github.io/CodeCanvas/)**  
 > Run the full client-side IDE in your browser with zero installs or downloads.
 
-CodeCanvas is a completely reimagined, browser-based IDE engineered from the ground up for the AI era. Built natively for the **OpenAI API (GPT-4o)**, it brings lightning-fast Ghost Text auto-completions and instant Auto-Debugging directly into your workflow.
-
-However, true innovation requires true flexibility. 
-
-CodeCanvas is the first IDE architecture designed to be a "Universal Client." While powered by OpenAI for maximum capability, the backbone is engineered to be so lightweight and optimized that **it runs smoothly even when tethered to a local 3B parameter model** (like Llama-3-3B or Phi-3 via Ollama) or Gemini's API.
+CodeCanvas is a completely reimagined, browser-based IDE engineered from the ground up for the AI era. Built natively for the **OpenAI API (GPT-4o, GPT-4o-mini, GPT-4-turbo)**, it brings intelligent AI Tutoring, instant Auto-Debugging, and single-click code application directly into your workspace.
 
 ---
 
 ## 🎨 Key Features
 
-*   **OpenAI-Powered Ghost Text**: Inline code completions powered by GPT-4o-mini as you type.
-*   **Universal AI Adapter**: Switch seamlessly between OpenAI, Local Ollama (3B models), or Google Gemini in the settings panel.
-*   **Zero-Latency Live Preview**: The rendering engine instantly compiles HTML/CSS/JS completely locally without a backend.
-*   **100% Offline Editor**: The Monaco Code Editor is fully bundled into the application, guaranteeing it never fails to load due to blocked CDNs.
-*   **Interactive Cyber Board (Whiteboard)**: A fully custom-built drawing board designed to sketch UI layouts, system architectures, or flowcharts:
-    *   Drawing modes: Freehand brush, lines, rectangles, circles, arrows, and text annotations.
-    *   Neon Cyberpunk palettes with glow-toggle support.
-    *   Undo / Redo memory stacks.
-    *   One-click download as PNG.
-    *   Copy directly as an HTML `<img>` tag containing the base64 string to paste it instantly into your code files.
-    *   Fullscreen modal overlay for large-scale sketching.
-*   **Built-in Interactive Curriculum**: Code challenges with live validation tests (and confetti rewards!) to teach web design steps in real-time.
-*   **Neon Glassmorphism UI**: A gorgeous, ultra-modern VS Code-style layout designed for deep focus.
+*   **OpenAI API First Class Support**: Built for **GPT-4o**, **GPT-4o-mini**, and any OpenAI model. Enter your OpenAI API key to automatically fetch and select your preferred OpenAI model dynamically.
+*   **Universal AI Provider**: Seamlessly toggle between **OpenAI API**, **Local Ollama** (3B models like Phi-3), or **Google Gemini** in the AI Settings panel.
+*   **AI Tutor & Apply-to-Editor**: Ask the AI Tutor questions or request fixes. With one click on "Apply to Editor", the generated code drop-in replaces your active file automatically.
+*   **One-Click Auto-Debug**: A glowing header button that scans your active file for syntax and logic errors, fixing them automatically.
+*   **Zero-Latency Live Preview**: The client-side rendering engine instantly compiles HTML/CSS/JS locally without any backend requirement.
+*   **Interactive Cyber Board (Whiteboard)**: A fully integrated drawing canvas to sketch UI layouts, flowcharts, or system architecture right inside the editor:
+    *   Drawing modes: Freehand brush, lines, rectangles, circles, arrows, and text.
+    *   Neon Cyberpunk & Light mode palettes with glow effects.
+    *   One-click copy as HTML `<img>` tag or download as PNG.
+*   **Built-in Project Templates**: Jumpstart development instantly with pre-configured templates for portfolios, landing pages, interactive apps, and games.
+*   **Pure Light & Dark Cosmic Themes**: Toggle between a high-contrast Cyber Dark mode and a clean Pure White Light mode across all editor components.
 
 ---
 
-## 🛠️ Development Journey & Technical Highlights
+## 🛠️ Setup & Usage
 
-During the build week, we leveraged collaborative brainstorm sessions with AI agents to architect the core components:
-1.  **Terminal Interceptor Architecture**: We solved infinite-loop console forwarding by injecting a lightweight IIFE directly into the preview `srcDoc` iframe to serialize arguments and route them securely via `window.parent.postMessage()`.
-2.  **State-Preserving Responsive Canvas**: The Cyber Board dynamically shifts sizes between sidebar mode and full-screen overlay while programmatically caching and restoring the context drawings.
-
----
-
-## 🚀 Installation & Setup
-
-We have removed all messy dependencies to ensure a flawless installation.
-
-1.  **Clone and Install**
+1.  **Launch Web Version**: Open the [Live GitHub Pages Demo](https://prashanth-karanam.github.io/CodeCanvas/).
+2.  **Add OpenAI API Key**:
+    *   Click the **Gear Icon (Settings)** in the top right.
+    *   Select **OpenAI API (Build Week)** as the provider.
+    *   Paste your OpenAI API key (`sk-proj-...`).
+    *   Click **Fetch Versions** to auto-load available models (e.g. `gpt-4o`, `gpt-4o-mini`), select your model, and click **Save & Close**.
+3.  **Local Development**:
     ```bash
     git clone https://github.com/prashanth-karanam/CodeCanvas.git
     cd CodeCanvas
     npm install
-    ```
-
-2.  **Start the IDE**
-    ```bash
     npm run dev
     ```
-    Open `http://localhost:5173` in your browser.
 
-3.  **Configure API Keys (Optional)**
-    *   Click the **Settings (Gear Icon)** in the top right.
-    *   Select **OpenAI API** or **Gemini API** from the dropdown and add your key.
-    *   To test the offline local architecture, install [Ollama](https://ollama.com) and run a small model:
-        ```bash
-        ollama run phi3:mini
-        ```
-        *(Windows note: Ensure CORS is enabled by setting `OLLAMA_ORIGINS="*"` in environment variables).*
+---
 
-4.  **Deploy to GitHub Pages**
-    ```bash
-    npm run build
-    ```
-    This project is pre-configured with a `gh-pages` script inside `package.json` for fast deployment.
+## 📜 Built For OpenAI Build Week 2026
+CodeCanvas demonstrates how AI can serve as an intuitive partner for developers, combining interactive visualization, instant code application, and multi-model flexibility into one sleek, web-based workspace.
