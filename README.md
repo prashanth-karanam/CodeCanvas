@@ -1,48 +1,125 @@
-# CodeCanvas - Universal AI-Native IDE
+# ⚡ CodeCanvas — Next-Gen Agentic AI-Native Browser IDE
 
-**OpenAI Build Week 2026 Submission**
+[![OpenAI Build Week 2026](https://img.shields.io/badge/OpenAI%20Build%20Week-2026%20Submission-74aa9c?style=for-the-badge&logo=openai&logoColor=white)](https://devpost.com)
+[![Powered by GPT-5.6](https://img.shields.io/badge/AI%20Engine-GPT--5.6%20%26%20Codex-10a37f?style=for-the-badge&logo=openai&logoColor=white)](https://openai.com)
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Workable%20Demo-GitHub%20Pages-blueviolet?style=for-the-badge)](https://prashanth-karanam.github.io/CodeCanvas/)
+[![Zero Downloads Needed](https://img.shields.io/badge/⚡%20Setup-Zero%20Heavy%20Downloads-success?style=for-the-badge)]()
 
-> [!TIP]
-> **[⚡ Launch Live Demo on GitHub Pages](https://prashanth-karanam.github.io/CodeCanvas/)**  
-> Run the full client-side IDE in your browser with zero installs or downloads.
-
-CodeCanvas is a completely reimagined, browser-based IDE engineered from the ground up for the AI era. Built natively for the **OpenAI API (GPT-4o, GPT-4o-mini, GPT-4-turbo)**, it brings intelligent AI Tutoring, instant Auto-Debugging, and single-click code application directly into your workspace.
-
----
-
-## 🎨 Key Features
-
-*   **OpenAI API First Class Support**: Built for **GPT-4o**, **GPT-4o-mini**, and any OpenAI model. Enter your OpenAI API key to automatically fetch and select your preferred OpenAI model dynamically.
-*   **Universal AI Provider**: Seamlessly toggle between **OpenAI API**, **Local Ollama** (3B models like Phi-3), or **Google Gemini** in the AI Settings panel.
-*   **AI Tutor & Apply-to-Editor**: Ask the AI Tutor questions or request fixes. With one click on "Apply to Editor", the generated code drop-in replaces your active file automatically.
-*   **One-Click Auto-Debug**: A glowing header button that scans your active file for syntax and logic errors, fixing them automatically.
-*   **Zero-Latency Live Preview**: The client-side rendering engine instantly compiles HTML/CSS/JS locally without any backend requirement.
-*   **Interactive Cyber Board (Whiteboard)**: A fully integrated drawing canvas to sketch UI layouts, flowcharts, or system architecture right inside the editor:
-    *   Drawing modes: Freehand brush, lines, rectangles, circles, arrows, and text.
-    *   Neon Cyberpunk & Light mode palettes with glow effects.
-    *   One-click copy as HTML `<img>` tag or download as PNG.
-*   **Built-in Project Templates**: Jumpstart development instantly with pre-configured templates for portfolios, landing pages, interactive apps, and games.
-*   **Pure Light & Dark Cosmic Themes**: Toggle between a high-contrast Cyber Dark mode and a clean Pure White Light mode across all editor components.
+> **"Code at the speed of thought. Fully workable in your browser right now."**  
+> **[👉 Launch Live Workable Workspace](https://prashanth-karanam.github.io/CodeCanvas/)** — *No heavy downloads, no Docker setup, no local dependencies. 100% instant, client-side agentic IDE in your browser.*
 
 ---
 
-## 🛠️ Setup & Usage
+## ⚡ 100% Live & Workable — Zero Heavy Downloads Required!
 
-1.  **Launch Web Version**: Open the [Live GitHub Pages Demo](https://prashanth-karanam.github.io/CodeCanvas/).
-2.  **Add OpenAI API Key**:
-    *   Click the **Gear Icon (Settings)** in the top right.
-    *   Select **OpenAI API (Build Week)** as the provider.
-    *   Paste your OpenAI API key (`sk-proj-...`).
-    *   Click **Fetch Versions** to auto-load available models (e.g. `gpt-4o`, `gpt-4o-mini`), select your model, and click **Save & Close**.
-3.  **Local Development**:
-    ```bash
-    git clone https://github.com/prashanth-karanam/CodeCanvas.git
-    cd CodeCanvas
-    npm install
-    npm run dev
-    ```
+Unlike traditional IDE projects or heavy AI tools requiring gigabytes of downloads, complex Docker containers, or lengthy build steps:
+* 🌐 **Instant Browser Launch**: CodeCanvas runs 100% in your browser. Click the link, paste your key, and start building immediately.
+* ⚡ **Zero Infrastructure Friction**: Fully client-side compilation engine compiles HTML/CSS/JS instantly without requiring any backend servers.
+* 🚀 **Ready for Immediate Judging**: Judges can test the full agentic loop live in seconds on any device, anywhere.
 
 ---
 
-## 📜 Built For OpenAI Build Week 2026
-CodeCanvas demonstrates how AI can serve as an intuitive partner for developers, combining interactive visualization, instant code application, and multi-model flexibility into one sleek, web-based workspace.
+## 🤖 Powered & Co-Built by GPT-5.6
+
+CodeCanvas is built around **OpenAI's GPT-5.6** and **Codex** engines both as its core runtime intelligence and as its building co-architect:
+
+### 🛠️ How GPT-5.6 Built CodeCanvas
+* **Co-Architected Codebase**: GPT-5.6 was leveraged throughout Build Week to design CodeCanvas's client-side AST scanner, stateful editor-to-canvas sync, and theme system.
+* **Optimized Prompt Pipeline**: Refined system prompts generated by GPT-5.6 ensure hyper-accurate code output that strictly adheres to web standards and error-free execution.
+
+### 🧠 How CodeCanvas Harnesses GPT-5.6 for Users
+* **Agentic Multi-Step Coding**: GPT-5.6 acts as an active co-developer—diagnosing multi-file logic bugs, generating full components, and automatically auto-applying edits straight to the active editor file.
+* **Real-Time Auto-Debug Engine**: Powered by GPT-5.6's reasoning capabilities, CodeCanvas continuously scans runtime console errors and syntax traps to issue one-click automated logic patches.
+* **Dynamic Model Switching**: Natively supports **GPT-5.6**, **GPT-4o**, **GPT-4o-mini**, and Codex endpoints with dynamic model version auto-discovery.
+
+---
+
+## 🎯 The Pitch: Why CodeCanvas?
+
+### ❌ The Problem
+Modern development is broken by constant context-switching:
+* Developers constantly jump between ChatGPT/Codex browser windows and their code editor.
+* Copy-pasting AI output manually leads to syntax errors, mismatched imports, and lost state.
+* Architecture planning happens on external whiteboards disconnected from the actual codebase.
+* Setting up local dev environments takes time away from shipping high-impact ideas.
+
+### ✨ The CodeCanvas Solution
+**CodeCanvas** unifies intelligent code generation, real-time visual architectural planning, and zero-latency browser rendering into a single, cohesive **AI-Native Workspace**. Built natively for **GPT-5.6**, CodeCanvas acts as an agentic partner that doesn't just suggest code—it understands, auto-diagnoses, and directly constructs your web application in real time.
+
+---
+
+## 🌟 Key Features & Highlights
+
+### 🧠 1. Agentic AI Integration & Auto-Debugging (GPT-5.6)
+* **Direct Apply-to-Editor**: AI generated solutions drop directly into your active workspace file with a single click—no manual copy-pasting required.
+* **One-Click Auto-Debug Engine**: An active real-time scanner that analyzes code syntax and runtime errors, invoking **GPT-5.6** model intelligence to diagnose and patch broken logic automatically.
+* **Dynamic OpenAI Model Auto-Discovery**: Enter your OpenAI API key to automatically query available models (`gpt-5.6`, `gpt-4o`, `gpt-4o-mini`, fine-tuned endpoints) and select your preferred intelligence level on the fly.
+
+### 🎨 2. Integrated CyberBoard (Visual Planning)
+* **Architectural & UI Sketchpad**: Integrated neon canvas for drawing UI mocks, data flows, and flowcharts side-by-side with your code editor.
+* **Rich Toolset & Aesthetics**: Freehand brush, shapes (rectangles, circles, lines, arrows), text annotations, neon cyberpunk glow effects, and light mode themes.
+* **Instant Export**: Copy your diagrams as HTML `<img>` tags or export HD PNG files into your project documentation.
+
+### ⚡ 3. Zero-Install Instant Live Preview
+* **Client-Side Compilation Engine**: Compile and render HTML, CSS, and JavaScript instantly in-browser with true hot-reloading.
+* **Starter Project Gallery**: Jumpstart production instantly with pre-built, responsive templates (Interactive Dashboards, Portfolios, Cyberpunk Web Apps, Canvas Games).
+
+### 🌌 4. High-Craft Craftsmanship & UI Design
+* **Dual Cosmic Design Tokens**: High-contrast Cyber Dark mode and clean Pure-White Light mode engineered for late-night hackathons and bright presentation screens.
+* **Multi-Provider Flexibility**: Native first-class OpenAI API support, plus fallback support for local Ollama models and Google Gemini.
+
+---
+
+## 🏆 OpenAI Build Week Judging Alignment Matrix
+
+| Judging Dimension | How CodeCanvas Delivers |
+| :--- | :--- |
+| **Technical Implementation** | Fully client-side React + Vite architecture with dynamic **GPT-5.6 API** integration, automated AST error diagnosis, and live state sync. |
+| **Design & User Experience** | Premium cosmic dark theme, smooth micro-interactions, integrated whiteboard canvas, and one-click code injection. |
+| **Potential Impact** | Eliminates developer friction by removing context switching, speeding up prototyping loops from hours to minutes. |
+| **Thoughtful AI Integration** | Uses **GPT-5.6** not as a passive chat widget, but as an active agentic co-developer integrated into the execution flow. |
+
+---
+
+## 🚀 Quick Start Guide
+
+### 🌐 Option A: Run Online (Recommended - Zero Setup!)
+1. Open the **[Live Workable CodeCanvas Workspace](https://prashanth-karanam.github.io/CodeCanvas/)**.
+2. Click the **Gear Icon (Settings)** in the top navigation bar.
+3. Select **OpenAI API (Build Week)** as your primary AI provider.
+4. Enter your OpenAI API Key (`sk-proj-...`) and click **Fetch Versions** to auto-load available models.
+5. Select `gpt-5.6`, `gpt-4o` or `gpt-4o-mini`, hit **Save & Close**, and start building!
+
+### 💻 Option B: Run Locally
+```bash
+# 1. Clone the repository
+git clone https://github.com/prashanth-karanam/CodeCanvas.git
+
+# 2. Navigate into the project folder
+cd CodeCanvas
+
+# 3. Install dependencies
+npm install
+
+# 4. Start local development server
+npm run dev
+```
+
+---
+
+## 🛠️ Built With
+
+* **AI Engine**: OpenAI API (**GPT-5.6**, `gpt-4o`, `gpt-4o-mini`, OpenAI Codex APIs)
+* **Agentic Development Platform**: **Antigravity** (Advanced Agentic AI Coding Assistant)
+* **Frontend Core**: React 18, Vite, JavaScript (ESNext)
+* **Editor & Preview**: Custom High-Performance Code Editor, HTML5 Canvas Rendering Engine
+* **Styling & Design System**: Custom Vanilla CSS Design System with Cyberpunk & Light cosmic themes
+
+---
+
+## 🤝 Submission & Contact
+Created with ❤️ for **OpenAI Build Week 2026**.  
+* **Developer**: Prashanth Karanam ([GitHub](https://github.com/prashanth-karanam))  
+* **Repository**: [github.com/prashanth-karanam/CodeCanvas](https://github.com/prashanth-karanam/CodeCanvas)
+
+

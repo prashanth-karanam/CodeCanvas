@@ -99,11 +99,13 @@ export function Whiteboard() {
     const ctx = contextRef.current;
     if (!canvas || !ctx) return;
     
-    ctx.fillStyle = '#0a0a0f'; // Matches the dark cyber theme
+    const isLight = document.querySelector('.app-container')?.getAttribute('data-theme') === 'light';
+    
+    ctx.fillStyle = isLight ? '#f8fafc' : '#0a0a0f';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Subtle grid lines
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+    ctx.strokeStyle = isLight ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.02)';
     ctx.lineWidth = 1;
     const gridSize = 30;
     for (let x = 0; x < canvas.width; x += gridSize) {
@@ -162,7 +164,9 @@ export function Whiteboard() {
 
   // Configure stroke style (colors, width, neon glow)
   const configureStroke = (ctx) => {
-    ctx.strokeStyle = tool === 'eraser' ? '#0a0a0f' : color;
+    const isLight = document.querySelector('.app-container')?.getAttribute('data-theme') === 'light';
+    const eraserColor = isLight ? '#f8fafc' : '#0a0a0f';
+    ctx.strokeStyle = tool === 'eraser' ? eraserColor : color;
     ctx.lineWidth = strokeWidth;
 
     if (glowEnabled && tool !== 'eraser') {
@@ -380,10 +384,10 @@ export function Whiteboard() {
   };
 
   return (
-    <div className={`flex flex-col h-full bg-[#08080c]/90 border border-border-glass ${isFullscreen ? 'fixed inset-0 z-50 p-6 backdrop-blur-2xl' : 'w-full'}`}>
+    <div className={`flex flex-col h-full bg-panel border border-border-glass ${isFullscreen ? 'fixed inset-0 z-50 p-6 backdrop-blur-2xl' : 'w-full'}`}>
       
       {/* Header Panel */}
-      <div className="flex justify-between items-center px-4 py-2 border-b border-border-glass bg-black/40 h-12">
+      <div className="flex justify-between items-center px-4 py-2 border-b border-border-glass bg-[var(--panel-header-bg)] h-12">
         <div className="flex items-center gap-2">
           <Presentation className="text-accent-pink" size={18} />
           <span className="font-bold text-xs uppercase tracking-widest text-text-main">
@@ -456,7 +460,7 @@ export function Whiteboard() {
       <div className="flex-1 flex flex-row min-h-0 relative">
         
         {/* Left Toolbar (Colors, Tools, Size/Glow) */}
-        <div className="flex flex-col bg-black/40 border-r border-border-glass items-center py-4 gap-4 z-10 w-16 overflow-y-auto overflow-x-hidden" style={{ minWidth: '4rem' }}>
+        <div className="flex flex-col bg-[var(--panel-header-bg)] border-r border-border-glass items-center py-4 gap-4 z-10 w-16 overflow-y-auto overflow-x-hidden" style={{ minWidth: '4rem' }}>
           
           {/* Cyber Color Palette (ABOVE tools) */}
           <div className="flex flex-col gap-2 items-center">
@@ -525,7 +529,7 @@ export function Whiteboard() {
         </div>
 
         {/* Canvas Render Panel */}
-        <div className="flex-1 min-h-0 bg-[#0a0a0f] relative overflow-hidden">
+        <div className="flex-1 min-h-0 bg-transparent relative overflow-hidden">
           <canvas
             ref={canvasRef}
             onContextMenu={handleContextMenu}

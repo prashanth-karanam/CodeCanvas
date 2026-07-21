@@ -108,6 +108,12 @@ body {
 }
 
 /* --- Ultra Glassmorphism Utilities --- */
+.text-text-main { color: var(--text-main) !important; }
+.text-text-muted { color: var(--text-muted) !important; }
+.text-accent-cyan { color: var(--accent-cyan) !important; }
+.text-accent-pink { color: var(--accent-pink) !important; }
+.text-accent-purple { color: var(--accent-purple) !important; }
+
 .glass-panel {
   background: var(--bg-glass);
   backdrop-filter: blur(40px);
@@ -289,6 +295,7 @@ button {
   border-radius: 12px;
   font-size: 0.95rem;
   line-height: 1.6;
+  color: var(--text-main);
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 

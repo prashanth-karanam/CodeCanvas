@@ -380,6 +380,7 @@ p {
               currentLessonIndex={currentLessonIndex}
               setCurrentLessonIndex={setCurrentLessonIndex}
               legacyFiles={legacyFiles}
+              onChange={handleCodeChange}
             />
           )}
           

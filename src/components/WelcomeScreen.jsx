@@ -3,17 +3,17 @@ import { Rocket, Info, BookOpen, Star, X, ChevronRight, Sun, Moon } from 'lucide
 import './WelcomeScreen.css';
 
 const FLOATING_SNIPPETS = [
-  { text: 'const [code, setCode] = useState()', top: '12%', left: '8%', delay: '0s', duration: '14s', size: 'text-xs' },
-  { text: '<html>', top: '22%', left: '78%', delay: '1s', duration: '12s', size: 'text-sm' },
-  { text: 'background: radial-gradient(...)', top: '78%', left: '12%', delay: '2.5s', duration: '16s', size: 'text-xs' },
-  { text: '<LivePreview html={html} />', top: '65%', left: '74%', delay: '0.5s', duration: '15s', size: 'text-sm' },
-  { text: 'canvas.getContext("2d")', top: '48%', left: '82%', delay: '3.5s', duration: '18s', size: 'text-xs' },
-  { text: '✦ AI Auto-Debug', top: '82%', left: '42%', delay: '2s', duration: '20s', size: 'text-sm font-semibold' },
-  { text: '<div>', top: '8%', left: '55%', delay: '4s', duration: '11s', size: 'text-sm' },
-  { text: 'border-radius: 12px', top: '52%', left: '6%', delay: '1.8s', duration: '13s', size: 'text-xs' },
-  { text: 'npm run dev', top: '32%', left: '16%', delay: '3s', duration: '17s', size: 'text-xs' },
-  { text: '✦ Cyber Board', top: '28%', left: '84%', delay: '4.5s', duration: '22s', size: 'text-sm font-semibold' },
-  { text: '✦ Real-time Live Preview', top: '68%', left: '10%', delay: '1.2s', duration: '19s', size: 'text-sm font-semibold' },
+  { text: 'const [code, setCode] = useState()', top: '12%', left: '8%', delay: '0s', duration: '14s', size: 'text-xs', path: 'float-left-path' },
+  { text: '<html>', top: '22%', left: '78%', delay: '1s', duration: '12s', size: 'text-sm', path: 'float-right-path' },
+  { text: 'background: radial-gradient(...)', top: '78%', left: '12%', delay: '2.5s', duration: '16s', size: 'text-xs', path: 'float-left-path' },
+  { text: '<LivePreview html={html} />', top: '65%', left: '74%', delay: '0.5s', duration: '15s', size: 'text-sm', path: 'float-right-path' },
+  { text: 'canvas.getContext("2d")', top: '48%', left: '82%', delay: '3.5s', duration: '18s', size: 'text-xs', path: 'float-right-path' },
+  { text: '✦ AI Auto-Debug', top: '82%', left: '42%', delay: '2s', duration: '20s', size: 'text-sm font-semibold', path: 'float-center-path' },
+  { text: '<div>', top: '8%', left: '55%', delay: '4s', duration: '11s', size: 'text-sm', path: 'float-center-path' },
+  { text: 'border-radius: 12px', top: '52%', left: '6%', delay: '1.8s', duration: '13s', size: 'text-xs', path: 'float-left-path' },
+  { text: 'npm run dev', top: '32%', left: '16%', delay: '3s', duration: '17s', size: 'text-xs', path: 'float-left-path' },
+  { text: '✦ Cyber Board', top: '28%', left: '84%', delay: '4.5s', duration: '22s', size: 'text-sm font-semibold', path: 'float-right-path' },
+  { text: '✦ Real-time Live Preview', top: '68%', left: '10%', delay: '1.2s', duration: '19s', size: 'text-sm font-semibold', path: 'float-left-path' },
 ];
 
 export function WelcomeScreen({ onEnter, theme, setTheme }) {
@@ -128,7 +128,7 @@ export function WelcomeScreen({ onEnter, theme, setTheme }) {
         {FLOATING_SNIPPETS.map((snippet, index) => (
           <div
             key={index}
-            className={`floating-code-snippet absolute ${snippet.size}`}
+            className={`floating-code-snippet absolute ${snippet.size} ${snippet.path}`}
             style={{
               top: snippet.top,
               left: snippet.left,

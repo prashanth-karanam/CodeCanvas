@@ -27,13 +27,19 @@ export function AIAssistant({ code, onChange, aiConfig, onClose, isSidebar }) {
 
     try {
       let replyText = '';
+      const lowerQuery = userQuery.toLowerCase();
+      const needsCode = ["debug", "write", "mistake", "fix", "overwrite", "error"].some(kw => lowerQuery.includes(kw));
       const codeContext = typeof code === 'string' ? code : JSON.stringify(code, null, 2);
-      const SYSTEM_PROMPT = `You are an expert AI coding tutor. Review this code:\n\n${codeContext}\n\nUser Question: ${userQuery}\n\nProvide a concise, professional answer. If suggesting code, use markdown blocks.`;
+      
+      const SYSTEM_PROMPT = needsCode 
+        ? `You are an expert AI coding tutor. Review this code:\n\n${codeContext}\n\nUser Question: ${userQuery}\n\nProvide a concise answer. If suggesting code, use markdown blocks. ONLY put valid code inside the markdown blocks, keep all conversational text outside them.`
+        : `You are a helpful AI coding tutor. Answer concisely. User Question: ${userQuery}`;
 
       if (aiConfig.provider === 'gemini') {
         if (!aiConfig.geminiKey) throw new Error("Gemini API key is missing. Please add it in Settings.");
         
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${aiConfig.geminiKey}`, {
+        const model = aiConfig.geminiModel || 'gemini-1.5-flash';
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${aiConfig.geminiKey}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -44,13 +50,33 @@ export function AIAssistant({ code, onChange, aiConfig, onClose, isSidebar }) {
         if (data.error) throw new Error(data.error.message);
         replyText = data.candidates[0].content.parts[0].text;
 
+      } else if (aiConfig.provider === 'openai') {
+        if (!aiConfig.openaiKey) throw new Error("OpenAI API key is missing. Please add it in Settings.");
+        
+        const model = aiConfig.openaiModel || 'gpt-3.5-turbo';
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${aiConfig.openaiKey}`
+          },
+          body: JSON.stringify({
+            model: model,
+            messages: [{ role: 'user', content: SYSTEM_PROMPT }]
+          })
+        });
+        const data = await response.json();
+        if (data.error) throw new Error(data.error.message);
+        replyText = data.choices[0].message.content;
+
       } else {
         // Local Ollama
+        const model = aiConfig.ollamaModel || 'phi3:mini';
         const response = await fetch('http://localhost:11434/api/generate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'phi3:mini',
+            model: model,
             prompt: SYSTEM_PROMPT,
             stream: false
           })

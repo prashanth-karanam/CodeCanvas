@@ -8,31 +8,108 @@
   background-color: #ffffff !important;
 }
 
-@keyframes floatDrift {
+@keyframes floatLeftPath {
   0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
+    transform: translate(0, 0) rotate(0deg);
+    color: rgba(0, 240, 255, 0.25);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
   }
   50% {
-    transform: translateY(-15px) translateX(10px) rotate(2deg);
+    /* Drift closer to card (right and slightly down) & GLOW */
+    transform: translate(45px, 20px) rotate(3deg) scale(1.08);
+    color: rgba(0, 240, 255, 0.85);
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 25px rgba(0, 240, 255, 0.5);
   }
   100% {
-    transform: translateY(0) translateX(0) rotate(0deg);
+    transform: translate(15px, -10px) rotate(-1deg);
+    color: rgba(0, 240, 255, 0.25);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
   }
+}
+
+@keyframes floatRightPath {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    color: rgba(0, 240, 255, 0.25);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
+  }
+  50% {
+    /* Drift closer to card (left and slightly up) & GLOW */
+    transform: translate(-50px, -20px) rotate(-3deg) scale(1.08);
+    color: rgba(0, 240, 255, 0.85);
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 25px rgba(0, 240, 255, 0.5);
+  }
+  100% {
+    transform: translate(-15px, 10px) rotate(1deg);
+    color: rgba(0, 240, 255, 0.25);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
+  }
+}
+
+@keyframes floatCenterPath {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    color: rgba(0, 240, 255, 0.25);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
+  }
+  50% {
+    /* Drift vertically closer to card & GLOW */
+    transform: translate(5px, -30px) rotate(1.5deg) scale(1.08);
+    color: rgba(0, 240, 255, 0.85);
+    text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 25px rgba(0, 240, 255, 0.5);
+  }
+  100% {
+    transform: translate(-5px, 15px) rotate(-1.5deg);
+    color: rgba(0, 240, 255, 0.25);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
+  }
+}
+
+@keyframes floatLeftPathLight {
+  0% { transform: translate(0, 0) rotate(0deg); color: rgba(0, 70, 255, 0.15); }
+  50% { transform: translate(40px, 15px) rotate(3deg) scale(1.05); color: rgba(0, 70, 255, 0.65); font-weight: bold; }
+  100% { transform: translate(10px, -5px) rotate(-1deg); color: rgba(0, 70, 255, 0.15); }
+}
+
+@keyframes floatRightPathLight {
+  0% { transform: translate(0, 0) rotate(0deg); color: rgba(0, 70, 255, 0.15); }
+  50% { transform: translate(-45px, -15px) rotate(-3deg) scale(1.05); color: rgba(0, 70, 255, 0.65); font-weight: bold; }
+  100% { transform: translate(-10px, 5px) rotate(1deg); color: rgba(0, 70, 255, 0.15); }
+}
+
+@keyframes floatCenterPathLight {
+  0% { transform: translate(0, 0) rotate(0deg); color: rgba(0, 70, 255, 0.15); }
+  50% { transform: translate(5px, -25px) rotate(1deg) scale(1.05); color: rgba(0, 70, 255, 0.65); font-weight: bold; }
+  100% { transform: translate(-5px, 10px) rotate(-1deg); color: rgba(0, 70, 255, 0.15); }
 }
 
 .floating-code-snippet {
-  color: rgba(0, 240, 255, 0.25);
   font-family: 'JetBrains Mono', monospace;
   pointer-events: none;
   user-select: none;
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
-  animation: floatDrift ease-in-out infinite alternate;
   white-space: nowrap;
 }
 
-.welcome-screen-container[data-theme="light"] .floating-code-snippet {
-  color: rgba(0, 70, 255, 0.15);
-  text-shadow: none;
+.float-left-path {
+  animation: floatLeftPath ease-in-out infinite alternate;
+}
+
+.float-right-path {
+  animation: floatRightPath ease-in-out infinite alternate;
+}
+
+.float-center-path {
+  animation: floatCenterPath ease-in-out infinite alternate;
+}
+
+.welcome-screen-container[data-theme="light"] .float-left-path {
+  animation-name: floatLeftPathLight;
+}
+.welcome-screen-container[data-theme="light"] .float-right-path {
+  animation-name: floatRightPathLight;
+}
+.welcome-screen-container[data-theme="light"] .float-center-path {
+  animation-name: floatCenterPathLight;
 }
 
 .perspective-1000 {

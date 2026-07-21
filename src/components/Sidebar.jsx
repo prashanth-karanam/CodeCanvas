@@ -13,7 +13,8 @@ export function Sidebar({
   aiConfig,
   currentLessonIndex,
   setCurrentLessonIndex,
-  legacyFiles
+  legacyFiles,
+  onChange
 }) {
   return (
     <div className="w-64 h-full bg-panel border border-border-glass rounded-xl flex flex-col z-10 overflow-hidden shadow-lg">
@@ -28,6 +29,7 @@ export function Sidebar({
       {activeActivity === 'tutor' && (
         <AIAssistant 
           code={legacyFiles}
+          onChange={onChange}
           aiConfig={aiConfig} 
           isSidebar={true}
         />
